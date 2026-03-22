@@ -1,0 +1,10 @@
+node_modules
+tests
+.git
+.gitignore
+main
+main_test.go
+package.json
+package-lock.json
+playwright.config.js
+.playwright
