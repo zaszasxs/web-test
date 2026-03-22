@@ -1,0 +1,5 @@
+keys/
+*.tfstate*
+.terraform/
+*.retry
+varintorn@vintcom.co.th-2026-03-07T05_46_52.675Z.pem
