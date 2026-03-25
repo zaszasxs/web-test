@@ -6,8 +6,9 @@ WORKDIR /app
 # Copy the entire project
 COPY . .
 
-# Build the Go application for ARM64
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o main .
+# Build the Go application dynamically for the target architecture
+ARG TARGETARCH
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH go build -o main .
 
 # Final stage
 FROM alpine:latest
