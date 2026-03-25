@@ -1,16 +1,16 @@
 # Build stage
-FROM --platform=linux/amd64 golang:1.25-alpine AS builder
+FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
 # Copy the entire project
 COPY . .
 
-# Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
+# Build the Go application for ARM64
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o main .
 
 # Final stage
-FROM --platform=linux/amd64 alpine:latest
+FROM alpine:latest
 
 # Upgrade all packages to get security fixes (e.g., zlib 1.3.2-r0)
 RUN apk update && apk upgrade --no-cache
