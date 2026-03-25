@@ -69,6 +69,23 @@ jobs:
             type=edge,branch=main
             latest
 
+      - name: Build local image for scanning
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: local-scan-image:${{ github.sha }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.24.0
+        with:
+          image-ref: 'local-scan-image:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
